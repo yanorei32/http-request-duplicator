@@ -3,6 +3,7 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use clap::Parser;
+use tokio::net::TcpListener;
 use tokio::sync::mpsc;
 
 mod http_handler;
@@ -55,5 +56,9 @@ async fn main() {
             .await;
     });
 
-    http_handler::run(&c.listen, state).await.unwrap();
+    let listener = TcpListener::bind(c.listen)
+        .await
+        .unwrap();
+
+    http_handler::run(listener, state).await.unwrap();
 }

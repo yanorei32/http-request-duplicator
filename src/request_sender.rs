@@ -41,26 +41,28 @@ impl RequestSender {
         // delayed clone
         let shared = ctx.readonly_objects.read().unwrap().clone();
 
-        match self
-            .inner
-            .client
-            .request(shared.method, &ctx.target)
-            .headers(shared.headers)
-            .body(reqwest::Body::from(ctx.body.clone()))
-            .send()
-            .await
-        {
-            Err(e) => Err(RequestError::ConnectionError(e)),
-            Ok(resp) => {
-                let status = resp.status();
-                self.inner.state.log.append(resp.status().into(), &ctx.target).await;
-                if status.is_success() {
-                    Ok(status)
-                } else {
-                    Err(RequestError::HttpError(status))
-                }
-            }
-        }
+        unimplemented!()
+
+        // match self
+        //     .inner
+        //     .client
+        //     .request(&shared.method, &ctx.target)
+        //     .headers(shared.headers)
+        //     .body(reqwest::Body::from(ctx.body.clone()))
+        //     .send()
+        //     .await
+        // {
+        //     Err(e) => Err(RequestError::ConnectionError(e)),
+        //     Ok(resp) => {
+        //         let status = resp.status();
+        //         self.inner.state.log.append(resp.status().into(), &ctx.target).await;
+        //         if status.is_success() {
+        //             Ok(status)
+        //         } else {
+        //             Err(RequestError::HttpError(status))
+        //         }
+        //     }
+        // }
     }
 
     async fn retry(&self, mut ctx: model::RequestContext, p: Priority) {
