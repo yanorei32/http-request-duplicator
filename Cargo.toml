@@ -6,13 +6,13 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-async-channel = "2.3.1"
 axum = { version = "0.7.5", features = ["tracing"] }
 bytes = "1.6.0"
 clap = { version = "4.5.4", features = ["derive", "env"] }
 hyper = "1.0.0"
-itertools = "0.13.0"
-rand = "0.8.5"
+once_cell = "1.19.0"
+quinn-proto = "0.11.3"
+reqwest = { version = "0.12.5", features = ["rustls-tls", "http3", "brotli", "hickory-dns"], default-features = false }
 serde = { version = "1.0.200", features = ["derive"] }
 serde_json = "1.0.116"
 tap = "1.0.1"
@@ -21,17 +21,10 @@ tracing = "0.1.40"
 tracing-log = "0.2.0"
 tracing-subscriber = "0.3.18"
 ulid = "1.1.2"
-h2 = "0.4.5"
-hickory-resolver = "0.24.1"
-tokio-rustls = "0.26.0"
-webpki-roots = "0.26.3"
-anyhow = "1.0.86"
-http = "1.1.0"
-url = "2.5.2"
 
 [profile.release]
-#opt-level = "z"
-#debug = false
-#lto = true
-#strip = true
-#codegen-units = 1
+opt-level = "z"
+debug = false
+lto = true
+strip = true
+codegen-units = 1
